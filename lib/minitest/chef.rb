@@ -1,0 +1,53 @@
+require 'minitest/unit'
+
+module MiniTest
+  module Chef
+    class TestHandler < ::Chef::Handler
+      def initialize(options = {})
+        path = options.delete(:path) || './test/test_*.rb'
+        Dir.glob(path).each {|test_suite| require test_suite}
+
+        @options = options
+      end
+
+      def report
+        # do not run tests if chef failed
+        return if failed?
+
+        runner = Runner.new(run_status)
+        runner._run(miniunit_options)
+      end
+
+      private
+      def miniunit_options
+        options = []
+        options << ['-n', @options[:filter]] if @options[:filter]
+        options << "-v" if @options[:verbose]
+        options << ['-s', @options[:seed]] if @options[:seed]
+        options.flatten
+      end
+    end
+
+    class Runner < MiniTest::Unit
+      attr_reader :run_status
+
+      def initialize(run_status)
+        @run_status = run_status
+        super()
+      end
+    end
+
+    class TestCase < MiniTest::Unit::TestCase
+      attr_reader :run_status, :node, :run_context
+
+      def run(runner)
+        if runner.respond_to?(:run_status)
+          @run_status = runner.run_status
+          @node = @run_status.node
+          @run_context = @run_status.run_context
+        end
+        super(runner)
+      end
+    end
+  end
+end
