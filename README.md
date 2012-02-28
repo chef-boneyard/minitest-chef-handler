@@ -28,7 +28,7 @@ report_handlers << MiniTest::Chef::Handler.new
 2. Write your tests as normal MiniTest cases extending from MiniTest::Chef::TestCase:
 
 ```ruby
-class TestNginx < MiniTest::Chef::TestUnit
+class TestNginx < MiniTest::Chef::TestCase
   def test_config_file_exist
     assert File.exist?('/etc/nginx.conf')
   end
@@ -38,8 +38,8 @@ end
 You still have access to Chef's `run_status`, `node` and `run_context` from your tests:
 
 ```ruby
-class TestNginx < MiniTest::Chef::TestUnit
-  def test_config_file_exist
+class TestNginx < MiniTest::Chef::TestCase
+  def test_succeed
     assert run_status.success?
   end
 end
