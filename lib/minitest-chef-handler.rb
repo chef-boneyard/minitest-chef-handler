@@ -2,7 +2,7 @@ require 'minitest/unit'
 
 module MiniTest
   module Chef
-    class TestHandler < ::Chef::Handler
+    class Handler < ::Chef::Handler
       def initialize(options = {})
         path = options.delete(:path) || './test/test_*.rb'
         Dir.glob(path).each {|test_suite| require test_suite}
