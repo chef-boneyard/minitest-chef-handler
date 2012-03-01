@@ -68,7 +68,7 @@ report_handlers << handler
 
 ## Chef server distribution
 
-The instructions abow have described how to use it in a Chef solo installation, if you want to distribute the handler to your Chef server check the chef_handler cookbooks in the examples.
+The instructions abow have described how to use it in a Chef solo installation. If you want to distribute the handler to your Chef server check either the chef_handler cookbooks in the examples or [minitest-handler-cookbook](https://github.com/btm/minitest-handler-cookbook).
 
 ## Copyright
 
