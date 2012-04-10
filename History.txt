@@ -1,0 +1,9 @@
+=== 0.3.0 / 2012-05-10
+
+* 1 bug fix:
+
+  * Call the right runner method in old versions of Minitest.
+
+=== 0.2.0
+
+* Fist official release.
