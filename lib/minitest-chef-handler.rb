@@ -1,6 +1,7 @@
 require 'minitest-chef-handler/context'
 require 'minitest-chef-handler/unit'
 require 'minitest-chef-handler/spec'
+require 'minitest-chef-handler/runner'
 
 module MiniTest
   module Chef
@@ -44,15 +45,5 @@ module MiniTest
         Gem::Version.new(MiniTest::Unit::VERSION) >= Gem::Version.new('2.1.0')
       end
     end
-
-    class Runner < MiniTest::Unit
-      attr_reader :run_status
-
-      def initialize(run_status)
-        @run_status = run_status
-        super()
-      end
-    end
-
   end
 end
