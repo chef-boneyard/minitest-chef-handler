@@ -1,4 +1,6 @@
-require 'minitest/unit'
+require 'minitest-chef-handler/context'
+require 'minitest-chef-handler/unit'
+require 'minitest-chef-handler/spec'
 
 module MiniTest
   module Chef
@@ -52,17 +54,5 @@ module MiniTest
       end
     end
 
-    class TestCase < MiniTest::Unit::TestCase
-      attr_reader :run_status, :node, :run_context
-
-      def run(runner)
-        if runner.respond_to?(:run_status)
-          @run_status = runner.run_status
-          @node = @run_status.node
-          @run_context = @run_status.run_context
-        end
-        super(runner)
-      end
-    end
   end
 end

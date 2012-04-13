@@ -17,7 +17,7 @@ $ gem install minitest-chef-handler
 
 ## Usage
 
-1. Add the report handler to your client.rb or solo.rb file:
+Add the report handler to your client.rb or solo.rb file:
 
 ```ruby
 require 'minitest-chef-handler'
@@ -25,7 +25,9 @@ require 'minitest-chef-handler'
 report_handlers << MiniTest::Chef::Handler.new
 ```
 
-2. Write your tests as normal MiniTest cases extending from MiniTest::Chef::TestCase:
+### Test cases
+
+Write your tests as normal MiniTest cases extending from MiniTest::Chef::TestCase:
 
 ```ruby
 class TestNginx < MiniTest::Chef::TestCase
@@ -41,6 +43,44 @@ You still have access to Chef's `run_status`, `node` and `run_context` from your
 class TestNginx < MiniTest::Chef::TestCase
   def test_succeed
     assert run_status.success?
+  end
+end
+```
+
+### Spec cases
+
+Wrap your descriptions with a class extending from MiniTest::Chef::Spec:
+
+```ruby
+class NginxSpec < MiniTest::Chef::Spec
+  describe 'configuration' do
+    it 'creates nginx.conf'
+  end
+end
+```
+
+Use the prefix `recipe::` in your descriptions:
+
+```ruby
+describe "recipe::nginx::configuration" do
+  it 'creates nginx.conf'
+end
+```
+
+Or use `describe_recipe` to define your specs:
+
+```ruby
+describe_recipe "nginx::configuration" do
+  it 'creates nginx.conf'
+end
+```
+
+You still have access to Chef's `run_status`, `node` and `run_context` from your specs:
+
+```ruby
+describe_recipe 'nginx:configuration' do
+  it 'installs version 1.0.15' do
+    node[:nginx][:version].should == '1.0.15'
   end
 end
 ```
