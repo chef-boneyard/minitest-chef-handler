@@ -13,5 +13,6 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = '0.3.0'
 
+  gem.add_dependency('chef')
   gem.add_development_dependency('rake')
 end
