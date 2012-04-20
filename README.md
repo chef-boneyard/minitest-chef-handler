@@ -85,6 +85,8 @@ describe_recipe 'nginx:configuration' do
 end
 ```
 
+### Custom assertions
+
 By including `MiniTest::Chef::Resources` and `MiniTest::Chef::Assertions` you
 can also make assertions like these:
 
