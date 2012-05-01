@@ -48,21 +48,35 @@ module MiniTest
       # It loads the tests based in the name of the cookbook and the name of the recipe.
       # The tests must be under the cookbooks directory.
       #
-      # I.e:
+      # Examples:
       #
       # If the seen recipes includes the recipe "foo" we try to load tests from:
       #
       #   cookbooks/foo/tests/default_test.rb
       #   cookbooks/foo/tests/default/*_test.rb
       #
+      #   cookbooks/foo/specs/default_spec.rb
+      #   cookbooks/foo/specs/default/*_spec.rb
+      #
+      # If the seen recipes includes the recipe "foo::install" we try to load tests from:
+      #
+      #   cookbooks/foo/tests/install_test.rb
+      #   cookbooks/foo/tests/install/*_test.rb
+      #
+      #   cookbooks/foo/specs/install_spec.rb
+      #   cookbooks/foo/specs/install/*_spec.rb
+      #
       def seen_recipes_paths
         run_status.node.run_state[:seen_recipes].keys.map do |recipe_name|
           cookbook_name, recipe_short_name = ::Chef::Recipe.parse_recipe_name(recipe_name)
           base_path = ::Chef::Config[:cookbook_path]
 
-          file_pattern = "%s/%s/tests/%s_test.rb" % [base_path, cookbook_name, recipe_short_name]
-          dir_pattern  = "%s/%s/tests/%s/*_test.rb" % [base_path, cookbook_name, recipe_short_name]
-          [file_pattern, dir_pattern]
+          file_test_pattern = "%s/%s/tests/%s_test.rb" % [base_path, cookbook_name, recipe_short_name]
+          dir_test_pattern  = "%s/%s/tests/%s/*_test.rb" % [base_path, cookbook_name, recipe_short_name]
+          file_spec_pattern = "%s/%s/specs/%s_spec.rb" % [base_path, cookbook_name, recipe_short_name]
+          dir_spec_pattern  = "%s/%s/specs/%s/*_spec.rb" % [base_path, cookbook_name, recipe_short_name]
+
+          [file_test_pattern, dir_test_pattern, file_spec_pattern, dir_spec_pattern]
         end.flatten
       end
 
