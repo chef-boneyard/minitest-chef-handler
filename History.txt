@@ -1,3 +1,9 @@
+=== 0.5.0 / 05-02-2012
+
+* 1 new feature:
+
+  * Load tests and specs automatically according to the seen recipes.
+
 === 0.4.0 / 04-20-2012
 
 * 2 new features:
