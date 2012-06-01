@@ -132,19 +132,23 @@ Examples:
 
 If the seen recipes includes the recipe "foo" we try to load tests from:
 
-  cookbooks/foo/tests/default_test.rb
-  cookbooks/foo/tests/default/*_test.rb
+```
+cookbooks/foo/tests/default_test.rb
+cookbooks/foo/tests/default/*_test.rb
 
-  cookbooks/foo/specs/default_spec.rb
-  cookbooks/foo/specs/default/*_spec.rb
+cookbooks/foo/specs/default_spec.rb
+cookbooks/foo/specs/default/*_spec.rb
+```
 
 If the seen recipes includes the recipe "foo::install" we try to load tests from:
 
-  cookbooks/foo/tests/install_test.rb
-  cookbooks/foo/tests/install/*_test.rb
+```
+cookbooks/foo/tests/install_test.rb
+cookbooks/foo/tests/install/*_test.rb
 
-  cookbooks/foo/specs/install_spec.rb
-  cookbooks/foo/specs/install/*_spec.rb
+cookbooks/foo/specs/install_spec.rb
+cookbooks/foo/specs/install/*_spec.rb
+```
 
 ## Automatic chef failure
 
