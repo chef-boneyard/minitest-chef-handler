@@ -1,3 +1,9 @@
+=== 0.5.1 / 05-31-2012
+
+* 1 new feature:
+
+  * Raise error on test failures.
+
 === 0.5.0 / 05-02-2012
 
 * 1 new feature:
