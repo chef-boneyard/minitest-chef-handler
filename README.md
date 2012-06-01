@@ -122,6 +122,36 @@ handler = MiniTest::Chef::Handler.new({
 report_handlers << handler
 ```
 
+## Automatic tests detection
+
+MiniTest-chef-hander collects test paths based in the recipes ran.
+It loads the tests based in the name of the cookbook and the name of the recipe.
+The tests must be under the cookbooks directory.
+
+Examples:
+
+If the seen recipes includes the recipe "foo" we try to load tests from:
+
+  cookbooks/foo/tests/default_test.rb
+  cookbooks/foo/tests/default/*_test.rb
+
+  cookbooks/foo/specs/default_spec.rb
+  cookbooks/foo/specs/default/*_spec.rb
+
+If the seen recipes includes the recipe "foo::install" we try to load tests from:
+
+  cookbooks/foo/tests/install_test.rb
+  cookbooks/foo/tests/install/*_test.rb
+
+  cookbooks/foo/specs/install_spec.rb
+  cookbooks/foo/specs/install/*_spec.rb
+
+## Automatic chef failure
+
+If the tests detect any failure, the handler raises an error to abort the
+Chef execution. This error can be captured by any other exception handler
+and be treated like any other error in the Chef execution.
+
 ## Chef server distribution
 
 The instructions abow have described how to use it in a Chef solo installation. If you want to distribute the handler to your Chef server check either the chef_handler cookbooks in the examples or [minitest-handler-cookbook](https://github.com/btm/minitest-handler-cookbook).
