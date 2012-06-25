@@ -29,26 +29,32 @@ module MiniTest
       ::Chef::Resource.class_eval do
         include MiniTest::Assertions
         def with(attribute, values)
-          actual_values = resource_value(attribute, values)
+          actual_values = resource_value(attribute)
           assert_equal values, actual_values,
             "The #{resource_name} does not have the expected #{attribute}"
           self
         end
+
         alias :and :with
         alias :must_have :with
+
         private
 
-        def resource_value(attribute, values)
+        def resource_value(attribute)
           case attribute
-            when :mode then mode.kind_of?(Integer) ? mode.to_s(8) : mode.to_s
-            when :owner || :user then Etc.getpwuid(owner).name
-            when :group then Etc.getgrgid(group).name
+            when :mode
+              return nil unless mode
+              mode.kind_of?(Integer) ? mode.to_s(8) : mode.to_s
+            when :owner || :user
+              return nil unless owner
+              owner.is_a?(Integer) ? Etc.getpwuid(owner).name : Etc.getpwnam(owner).name
+            when :group
+              return nil unless group
+              group.is_a?(Integer) ? Etc.getgrgid(group).name : Etc.getgrnam(group).name
             else send(attribute)
           end
         end
-
       end
-
     end
   end
 end

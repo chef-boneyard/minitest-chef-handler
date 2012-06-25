@@ -48,4 +48,39 @@ describe MiniTest::Chef::Resources do
     end
   end
 
+  describe "asserting with :mode" do
+    let(:file) { ::Chef::Resource::File.new('/etc/foo') }
+
+    it "fail when the mode is nil" do
+      file.set_or_return(:mode, nil, {})
+
+      assert_triggered(/Expected: "755"\n  Actual: nil/) do
+        file.must_have(:mode, '755')
+      end
+    end
+  end
+
+  describe "asserting with :owner" do
+    let(:file) { ::Chef::Resource::File.new('/etc/foo') }
+
+    it "fail when the owner is nil" do
+      file.set_or_return(:owner, nil, {})
+
+      assert_triggered(/Expected: "david"\n  Actual: nil/) do
+        file.must_have(:owner, 'david')
+      end
+    end
+  end
+
+  describe "asserting with :group" do
+    let(:file) { ::Chef::Resource::File.new('/etc/foo') }
+
+    it "fail when the group is nil" do
+      file.set_or_return(:group, nil, {})
+
+      assert_triggered(/Expected: "staff"\n  Actual: nil/) do
+        file.must_have(:owner, 'staff')
+      end
+    end
+  end
 end
