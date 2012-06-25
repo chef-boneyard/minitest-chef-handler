@@ -1,3 +1,9 @@
+=== 0.5.2 / 06-25-2012
+
+* 1 bug fix:
+
+  * Prevent a premature failure when resources have nil owner, group and mode.
+
 === 0.5.1 / 05-31-2012
 
 * 1 new feature:
