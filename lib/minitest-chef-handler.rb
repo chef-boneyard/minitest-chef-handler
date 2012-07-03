@@ -3,9 +3,11 @@ require 'minitest-chef-handler/resources'
 require 'minitest-chef-handler/unit'
 require 'minitest-chef-handler/spec'
 require 'minitest-chef-handler/runner'
+require 'minitest-chef-handler/ci_runner'
 
 require 'minitest-chef-handler/assertions'
 require 'minitest-chef-handler/infections'
+require 'ci/reporter/minitest'
 
 require 'minitest-chef-handler/lookup'
 
@@ -21,9 +23,15 @@ module MiniTest
       def report
         # do not run tests if chef failed
         return if failed?
+	ENV['CI_REPORTS'] = @options[:junit_dir] if @options[:junit_dir]
+	require 'ci/reporter/minitest' if @options[:junit_dir]
 
         require_test_suites(@options.delete(:path))
-        runner = Runner.new(run_status)
+	if @options[:junit_dir]
+		runner = CI_Runner.new(run_status)
+	else
+        	runner = Runner.new(run_status)
+	end
 
         if custom_runner?
           runner._run(miniunit_options)
