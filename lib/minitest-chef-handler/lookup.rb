@@ -66,7 +66,7 @@ module MiniTest
       def lookup_cookbook(path, name)
         path_expr = Array(path).join(',')
 
-        Dir.glob("{%s}/$%s" % [path_expr, name])
+        Dir.glob("{%s}/%s" % [path_expr, name])
       end
     end
   end
