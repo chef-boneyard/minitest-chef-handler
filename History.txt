@@ -1,3 +1,9 @@
+=== 0.5.4 / 07-10-2012
+
+* 1 bub fix:
+
+  * Fix cookbook's path lookup when Chef's cookbook_path is an Array instead of a String.
+
 === 0.5.3 / 07-10-2012
 
 * 1 bub fix:
