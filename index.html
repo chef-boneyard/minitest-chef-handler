@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <title>Minitest-chef-handler by calavera</title>
+  </head>
+
+  <body>
+    <header>
+      <div class="inner">
+        <h1>Minitest-chef-handler</h1>
+        <h2>Run minitest suites after your Chef recipes to check the status of your system.</h2>
+        <a href="https://github.com/calavera/minitest-chef-handler" class="button"><small>View project on</small>GitHub</a>
+      </div>
+    </header>
+
+    <div id="content-wrapper">
+      <div class="inner clearfix">
+        <section id="main-content">
+          <h1>Minitest Chef Handler</h1>
+
+<p>Run minitest suites after your Chef recipes to check the status of your system.</p>
+
+<h1>Installation</h1>
+
+<pre><code>$ gem install minitest-chef-handler
+</code></pre>
+
+<h2>Usage</h2>
+
+<p>Add the report handler to your client.rb or solo.rb file:</p>
+
+<div class="highlight">
+<pre><span class="nb">require</span> <span class="s1">'minitest-chef-handler'</span>
+
+<span class="n">report_handlers</span> <span class="o">&lt;&lt;</span> <span class="no">MiniTest</span><span class="o">::</span><span class="no">Chef</span><span class="o">::</span><span class="no">Handler</span><span class="o">.</span><span class="n">new</span>
+</pre>
+</div>
+
+
+<h3>Test cases</h3>
+
+<p>Write your tests as normal MiniTest cases extending from MiniTest::Chef::TestCase:</p>
+
+<div class="highlight">
+<pre><span class="k">class</span> <span class="nc">TestNginx</span> <span class="o">&lt;</span> <span class="no">MiniTest</span><span class="o">::</span><span class="no">Chef</span><span class="o">::</span><span class="no">TestCase</span>
+  <span class="k">def</span> <span class="nf">test_config_file_exist</span>
+    <span class="n">assert</span> <span class="no">File</span><span class="o">.</span><span class="n">exist?</span><span class="p">(</span><span class="s1">'/etc/nginx.conf'</span><span class="p">)</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>You still have access to Chef's <code>run_status</code>, <code>node</code> and <code>run_context</code> from your tests:</p>
+
+<div class="highlight">
+<pre><span class="k">class</span> <span class="nc">TestNginx</span> <span class="o">&lt;</span> <span class="no">MiniTest</span><span class="o">::</span><span class="no">Chef</span><span class="o">::</span><span class="no">TestCase</span>
+  <span class="k">def</span> <span class="nf">test_succeed</span>
+    <span class="n">assert</span> <span class="n">run_status</span><span class="o">.</span><span class="n">success?</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<h3>Spec cases</h3>
+
+<p>Wrap your descriptions with a class extending from MiniTest::Chef::Spec:</p>
+
+<div class="highlight">
+<pre><span class="k">class</span> <span class="nc">NginxSpec</span> <span class="o">&lt;</span> <span class="no">MiniTest</span><span class="o">::</span><span class="no">Chef</span><span class="o">::</span><span class="no">Spec</span>
+  <span class="n">describe</span> <span class="s1">'configuration'</span> <span class="k">do</span>
+    <span class="n">it</span> <span class="s1">'creates nginx.conf'</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>Use the prefix <code>recipe::</code> in your descriptions:</p>
+
+<div class="highlight">
+<pre><span class="n">describe</span> <span class="s2">"recipe::nginx::configuration"</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'creates nginx.conf'</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>Or use <code>describe_recipe</code> to define your specs:</p>
+
+<div class="highlight">
+<pre><span class="n">describe_recipe</span> <span class="s2">"nginx::configuration"</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'creates nginx.conf'</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<p>You still have access to Chef's <code>run_status</code>, <code>node</code> and <code>run_context</code> from your specs:</p>
+
+<div class="highlight">
+<pre><span class="n">describe_recipe</span> <span class="s1">'nginx:configuration'</span> <span class="k">do</span>
+  <span class="n">it</span> <span class="s1">'installs version 1.0.15'</span> <span class="k">do</span>
+    <span class="n">node</span><span class="o">[</span><span class="ss">:nginx</span><span class="o">][</span><span class="ss">:version</span><span class="o">].</span><span class="n">should</span> <span class="o">==</span> <span class="s1">'1.0.15'</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre>
+</div>
+
+
+<h3>Custom assertions</h3>
+
+<p>By including <code>MiniTest::Chef::Resources</code> and <code>MiniTest::Chef::Assertions</code> you
+can also make assertions like these:</p>
+
+<div class="highlight">
+<pre><span class="n">file</span><span class="p">(</span><span class="s2">"/etc/fstab"</span><span class="p">)</span><span class="o">.</span><span class="n">must_have</span><span class="p">(</span><span class="ss">:mode</span><span class="p">,</span> <span class="s2">"644"</span><span class="p">)</span>
+<span class="n">package</span><span class="p">(</span><span class="s2">"less"</span><span class="p">)</span><span class="o">.</span><span class="n">must_be_installed</span>
+<span class="n">service</span><span class="p">(</span><span class="s2">"chef-client"</span><span class="p">)</span><span class="o">.</span><span class="n">must_be_running</span>
+</pre>
+</div>
+
+
+<p>The resources supported are: <code>cron</code>, <code>directory</code>, <code>file</code>, <code>group</code>, <code>ifconfig</code>,
+<code>link</code>, <code>mount</code>, <code>package</code>, <code>service</code> and <code>user</code>.</p>
+
+<p>For example usage see the tests under the <code>examples/spec_examples</code> directory.</p>
+
+<h2>Further configuration</h2>
+
+<p>These are the options the handler accepts:</p>
+
+<ul>
+<li>:path =&gt; where your test files are, './test/test_*.rb' by default</li>
+<li>:filter =&gt; filter test names on pattern</li>
+<li>:seed =&gt; set random seed</li>
+<li>:verbose =&gt; show progress processing files.</li>
+</ul><p>Example:</p>
+
+<div class="highlight">
+<pre><span class="n">handler</span> <span class="o">=</span> <span class="no">MiniTest</span><span class="o">::</span><span class="no">Chef</span><span class="o">::</span><span class="no">Handler</span><span class="o">.</span><span class="n">new</span><span class="p">({</span>
+  <span class="ss">:path</span>    <span class="o">=&gt;</span> <span class="s1">'./cookbooks/test/*_test.rb'</span><span class="p">,</span>
+  <span class="ss">:filter</span>  <span class="o">=&gt;</span> <span class="s1">'foo'</span><span class="p">,</span>
+  <span class="ss">:seed</span>    <span class="o">=&gt;</span> <span class="nb">srand</span><span class="p">,</span>
+  <span class="ss">:verbose</span> <span class="o">=&gt;</span> <span class="kp">true</span><span class="p">})</span>
+
+<span class="n">report_handlers</span> <span class="o">&lt;&lt;</span> <span class="n">handler</span>
+</pre>
+</div>
+
+
+<h2>Automatic tests detection</h2>
+
+<p>MiniTest-chef-hander collects test paths based in the recipes ran.
+It loads the tests based in the name of the cookbook and the name of the recipe.
+The tests must be under the cookbooks directory.</p>
+
+<p>Examples:</p>
+
+<p>If the seen recipes includes the recipe "foo" we try to load tests from:</p>
+
+<pre><code>cookbooks/foo/tests/default_test.rb
+cookbooks/foo/tests/default/*_test.rb
+
+cookbooks/foo/specs/default_spec.rb
+cookbooks/foo/specs/default/*_spec.rb
+</code></pre>
+
+<p>If the seen recipes includes the recipe "foo::install" we try to load tests from:</p>
+
+<pre><code>cookbooks/foo/tests/install_test.rb
+cookbooks/foo/tests/install/*_test.rb
+
+cookbooks/foo/specs/install_spec.rb
+cookbooks/foo/specs/install/*_spec.rb
+</code></pre>
+
+<h2>Automatic chef failure</h2>
+
+<p>If the tests detect any failure, the handler raises an error to abort the
+Chef execution. This error can be captured by any other exception handler
+and be treated like any other error in the Chef execution.</p>
+
+<h2>Chef server distribution</h2>
+
+<p>The instructions abow have described how to use it in a Chef solo installation. If you want to distribute the handler to your Chef server check either the chef_handler cookbooks in the examples or <a href="https://github.com/btm/minitest-handler-cookbook">minitest-handler-cookbook</a>.</p>
+
+<h2>Copyright</h2>
+
+<p>Copyright (c) 2012 David Calavera. See LICENSE for details.</p>
+        </section>
+
+        <aside id="sidebar">
+          <a href="https://github.com/calavera/minitest-chef-handler/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/calavera/minitest-chef-handler/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/calavera/minitest-chef-handler"></a> is maintained by <a href="https://github.com/calavera">calavera</a>.</p>
+
+          <p>This page was generated by <a href="pages.github.com">GitHub Pages</a> using the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
+      </div>
+    </div>
+
+  
+  </body>
+</html>
