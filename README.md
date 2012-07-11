@@ -2,14 +2,7 @@
 
 Run minitest suites after your Chef recipes to check the status of your system.
 
-## Motivation
-
-Working at Engine Yard I have to maintain a quite complicated set of Chef recipes that we use to set up our customers' instances. I need to be sure that everytime someone modifies those recipes, mostly myself, the provisioned services continue working as expected.
-
-There are other solutions that evaluate the configured node after the recipes
-are loaded without arriving to the converge phase, like [ChefSpec](https://github.com/acrmp/chefspec) or [rspec-chef](https://github.com/calavera/rspec-chef), but I needed something to write integration tests easily. I checked [chef-minitest](https://github.com/fujin/chef-minitest) but I'm still amazed by the ugly code that I have to write into the recipes to make it work.
-
-## Installation
+# Installation
 
 ```
 $ gem install minitest-chef-handler
