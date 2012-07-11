@@ -102,6 +102,9 @@ These are the options the handler accepts:
 * :filter => filter test names on pattern
 * :seed => set random seed
 * :verbose => show progress processing files.
+* :ci_reports => path to write out the result of each test in a JUnit-compatible XML file, parseable by many CI platforms.
+
+(ci_reports requires that the ci_reporter gem be installed and available on the system)
 
 Example:
 
