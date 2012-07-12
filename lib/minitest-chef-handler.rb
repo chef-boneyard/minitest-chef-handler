@@ -23,14 +23,13 @@ module MiniTest
         # do not run tests if chef failed
         return if failed?
 	ENV['CI_REPORTS'] = @options[:ci_reports] if @options[:ci_reports]
-	require 'ci/reporter/minitest' if @options[:ci_reports]
 
         require_test_suites(@options.delete(:path))
-	if @options[:ci_reports]
-		runner = CIRunner.new(run_status)
-	else
-        	runner = Runner.new(run_status)
-	end
+        if @options[:ci_reports]
+          runner = CIRunner.new(run_status)
+        else
+          runner = Runner.new(run_status)
+        end
 
         if custom_runner?
           runner._run(miniunit_options)
