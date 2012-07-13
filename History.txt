@@ -1,3 +1,9 @@
+=== 0.6.0 / 07-13-2012
+
+* 1 new feature:
+
+  * Support for delivering test results in JUnit format using ci-reporter gem.
+
 === 0.5.4 / 07-10-2012
 
 * 1 bub fix:
