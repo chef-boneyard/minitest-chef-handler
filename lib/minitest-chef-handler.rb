@@ -43,6 +43,12 @@ module MiniTest
             raise "MiniTest failed with #{runner.failures} failure(s)"
           end
         end
+
+        if runner.errors.nonzero?
+          ::Chef::Client.when_run_completes_successfully do |run_status|
+            raise "MiniTest failed with #{runner.errors} errors(s)"
+          end
+        end
       end
 
       def miniunit_options
