@@ -38,15 +38,9 @@ module MiniTest
           runner.run(miniunit_options)
         end
 
-        if runner.failures.nonzero?
+        if [runner.failures, runner.errors].any?(&:nonzero?)
           ::Chef::Client.when_run_completes_successfully do |run_status|
-            raise "MiniTest failed with #{runner.failures} failure(s)"
-          end
-        end
-
-        if runner.errors.nonzero?
-          ::Chef::Client.when_run_completes_successfully do |run_status|
-            raise "MiniTest failed with #{runner.errors} errors(s)"
+            raise "MiniTest failed with #{runner.failures} failure(s) and #{runner.errors} error(s)."
           end
         end
       end
