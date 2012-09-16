@@ -30,7 +30,7 @@ class TestNginx < MiniTest::Chef::TestCase
 end
 ```
 
-You still have access to Chef's `run_status`, `node` and `run_context` from your tests:
+Inside your tests cases, you still have access to Chef's `run_status`, `node` and `run_context`:
 
 ```ruby
 class TestNginx < MiniTest::Chef::TestCase
@@ -68,7 +68,7 @@ describe_recipe "nginx::configuration" do
 end
 ```
 
-Inside your test cases, you still have access to Chef's `run_status`, `node` and `run_context` from your specs:
+Inside your specs, you still have access to Chef's `run_status`, `node` and `run_context`:
 
 ```ruby
 describe_recipe 'nginx:configuration' do
