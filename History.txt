@@ -1,6 +1,12 @@
+=== 0.6.2 / 09-16-2012
+
+* 1 bug fix:
+
+  * Print MiniTest output in every Chef logger configured.
+
 === 0.6.1 / 08-22-2012
 
-* 1 bug feature:
+* 1 bug fix:
 
   * Raise error on test errors.
 
