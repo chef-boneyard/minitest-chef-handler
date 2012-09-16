@@ -1,3 +1,4 @@
+require 'minitest-chef-handler/core_ext'
 require 'minitest-chef-handler/context'
 require 'minitest-chef-handler/resources'
 require 'minitest-chef-handler/unit'
@@ -24,6 +25,8 @@ module MiniTest
         return if failed?
 
         require_test_suites(@options.delete(:path))
+
+        MiniTest::Unit.output = ::Chef::Log
 
         if @options[:ci_reports]
           ENV['CI_REPORTS'] = @options[:ci_reports]
