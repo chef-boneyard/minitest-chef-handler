@@ -68,7 +68,7 @@ describe_recipe "nginx::configuration" do
 end
 ```
 
-You still have access to Chef's `run_status`, `node` and `run_context` from your specs:
+Inside your test cases, you still have access to Chef's `run_status`, `node` and `run_context` from your specs:
 
 ```ruby
 describe_recipe 'nginx:configuration' do
