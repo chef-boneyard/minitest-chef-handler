@@ -14,7 +14,7 @@ module MiniTest
           required_args.each do |arg|
             res.send(arg, options.first[arg])
           end
-          provider = ::Chef::Platform.provider_for_resource(res)
+          provider = ::Chef::Platform.provider_for_resource(res, :create)
           provider.load_current_resource
           provider.current_resource
         end
