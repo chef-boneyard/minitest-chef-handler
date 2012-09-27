@@ -17,20 +17,12 @@ module MiniTest
 
           # in Chef 10.14.0 an additional argument was added to Chef::Platform.provider_for_resource
           # so we check the version here and use it if it is available
-          chef_version = node['chef_packages']['chef']['version'].to_s
-
-          case
-          when chef_version.split(".",2).first.to_i < 10
+          if Gem::Version.new(::Chef::VERSION) < Gem::Version.new("10.14.0")
             provider = ::Chef::Platform.provider_for_resource(res)
-          when chef_version.split(".",2).first.to_i > 10
-            provider = ::Chef::Platform.provider_for_resource(res, :create)
           else
-            if chef_version.split(".",2).last.to_i < 14
-              provider = ::Chef::Platform.provider_for_resource(res)
-            else
-              provider = ::Chef::Platform.provider_for_resource(res, :create)
-            end
+            provider = ::Chef::Platform.provider_for_resource(res, :create)
           end
+
           provider.load_current_resource
           provider.current_resource
         end
