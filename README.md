@@ -154,6 +154,24 @@ and be treated like any other error in the Chef execution.
 
 The instructions above have described how to use it in a Chef solo installation. If you want to distribute the handler to your Chef server check either the chef_handler cookbooks in the examples or [minitest-handler-cookbook](https://github.com/btm/minitest-handler-cookbook).
 
+## Development
+
+Minitest-chef-handler should work with versions 10.x and versions 11.x of Chef.
+
+There are just two commands that you need to know to hack on this library.
+
+1. Load both versions of Chef dependencies:
+
+```
+$ script/bootstrap
+```
+
+2. Run unit and integration tests agains both versions of Chef:
+
+```
+$ script/test
+```
+
 ## Copyright
 
 Copyright (c) 2012 David Calavera. See LICENSE for details.

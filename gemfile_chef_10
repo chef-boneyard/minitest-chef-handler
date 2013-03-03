@@ -1,0 +1,3 @@
+source 'http://rubygems.org'
+gemspec
+gem 'chef', '~> 10.8'

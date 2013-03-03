@@ -17,3 +17,6 @@ test/version_tmp
 tmp
 .vagrant
 examples/simple-solo/chef.log
+gemfile_chef_10.lock
+gemfile_chef_11.lock
+examples/simple-solo/cache
