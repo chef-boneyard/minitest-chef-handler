@@ -1,3 +1,9 @@
+=== 0.6.8 / 03-03-2013
+
+* 1 bug fix:
+
+  * Really really support auto-discovery of test paths under chef version 11.
+
 === 0.6.7 / 02-07-2013
 
 * 1 bug fix:
