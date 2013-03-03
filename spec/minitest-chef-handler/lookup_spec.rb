@@ -22,7 +22,8 @@ describe MiniTest::Chef::Lookup do
 
   describe "#used_recipe_names" do
     before do
-      stubs(:run_status => stub(:node => stub(:run_state => {})))
+      stubs(:run_status => stub(:node => stub(:run_state => {}),
+              :run_context => {}))
     end
 
     it "uses seen_recipes if run_state is not empty" do
@@ -31,8 +32,9 @@ describe MiniTest::Chef::Lookup do
     end
 
     it "uses run_list if run_state is empty" do
-      run_status.node.stubs(:run_list => %w(recipe[foo] recipe[bar] role[someone]).map { |i| Chef::RunList::RunListItem.new(i) })
-      used_recipe_names.must_equal ["foo", "bar"]
+      expected = %w(recipe[foo] recipe[bar] role[someone]).map { |i| Chef::RunList::RunListItem.new(i) }
+      run_status.run_context.stubs(:loaded_recipes => expected)
+      used_recipe_names.must_equal expected
     end
   end
 end
