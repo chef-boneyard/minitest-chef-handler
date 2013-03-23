@@ -1,3 +1,9 @@
+=== 0.6.9 / 03-23-2013
+
+* 1 bug fix:
+
+  * Do not check results when there are no tests.
+
 === 0.6.8 / 03-03-2013
 
 * 1 bug fix:
