@@ -9,13 +9,13 @@ end
 
 Vagrant::Config.run do |config|
   config.vm.box = "precise64"
-  config.vm.provision :shell, :inline => "gem install /vagrant/#{package}"
+  config.vm.provision :shell, :inline => "gem install /vagrant/#{package} --no-rdoc --no-ri"
   config.vm.provision :chef_solo do |chef|
     #chef.log_level = :debug
     #chef.json = {"minitest" => {"verbose" => true}}
     chef.run_list = [
-      "minitest-handler",
       "recipe[spec_examples]",
+      "minitest-handler",
     ]
   end
 end
