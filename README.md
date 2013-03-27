@@ -2,6 +2,8 @@
 
 Run minitest suites after your Chef recipes to check the status of your system.
 
+[![Build Status](https://travis-ci.org/calavera/minitest-chef-handler.png)](https://travis-ci.org/calavera/minitest-chef-handler)
+
 # Installation
 
 ```Bash
