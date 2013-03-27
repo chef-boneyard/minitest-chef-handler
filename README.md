@@ -22,8 +22,8 @@ Options 2: Using [minitest-handler](https://github.com/btm/minitest-handler-cook
 ```Ruby
 # Vagrantfile
 chef.run_list = [
-  "minitest-handler",
-  "recipe[your-recipes]"
+  "your-recipes",
+  "minitest-handler"
 ]
 ```
 
