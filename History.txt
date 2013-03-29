@@ -1,3 +1,9 @@
+=== 1.0.0 / 03-29-2013
+
+* 1 new feature:
+
+  * More assertions.
+
 === 0.6.9 / 03-23-2013
 
 * 1 bug fix:
