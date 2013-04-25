@@ -11,9 +11,9 @@ Gem::Specification.new do |gem|
   gem.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
   gem.name          = "minitest-chef-handler"
   gem.require_paths = ["lib"]
-  gem.version       = '1.0.0'
+  gem.version       = '1.0.1'
 
-  gem.add_dependency('minitest')
+  gem.add_dependency('minitest', '~> 4.7.3')
   gem.add_dependency('chef')
   gem.add_dependency('ci_reporter')
   gem.add_development_dependency "rake"

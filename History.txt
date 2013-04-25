@@ -1,3 +1,9 @@
+=== 1.0.1 / 04-24-2013
+
+* 1 bug fix:
+
+  * Fix the minitest dependency specifier.
+
 === 1.0.0 / 03-29-2013
 
 * 1 new feature:
