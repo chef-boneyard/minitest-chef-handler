@@ -460,4 +460,16 @@ describe MiniTest::Chef::Assertions do
       end
     end
   end
+
+  describe "#refute_sh" do
+    it "succeeds when the command fails" do
+      refute_sh("false")
+    end
+
+    it "fails when the command succeeds" do
+      assert_triggered "Expected true not to succeed, but succeeded with: ABC" do
+        refute_sh("echo ABC && true")
+      end
+    end
+  end
 end
