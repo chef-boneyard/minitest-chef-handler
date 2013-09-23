@@ -14,13 +14,13 @@ Gem::Specification.new do |gem|
   gem.version       = '1.0.1'
 
   gem.add_dependency('minitest', '~> 4.7.3')
-  gem.add_dependency('chef')
+  gem.add_dependency('chef', '>= 10.12.0')
   gem.add_dependency('ci_reporter')
   gem.add_development_dependency "rake"
   gem.add_development_dependency "mocha"
   gem.add_development_dependency "appraisal"
   gem.add_development_dependency "ffi", ">= 1"
-  gem.add_development_dependency "vagrant", ">= 1.1"
-  gem.add_development_dependency "berkshelf", ">= 1.3.1"
-  gem.add_development_dependency "vagrant-berkshelf"
+  gem.add_development_dependency "vagrant", "~> 1.3"
+  gem.add_development_dependency "berkshelf", "~> 2.0"
+  gem.add_development_dependency "vagrant-berkshelf", "~> 1.3"
 end
