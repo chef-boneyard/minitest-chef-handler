@@ -135,7 +135,7 @@ report_handlers << handler
 ## Automatic tests detection
 
 MiniTest-chef-hander collects test paths based in the recipes ran.
-It loads the tests based in the name of the cookbook and the name of the recipe.
+It loads the tests based on the name of the cookbook and the name of the recipe.
 The tests must be under the cookbooks directory.
 
 Examples:
