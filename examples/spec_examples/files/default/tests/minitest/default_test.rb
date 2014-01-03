@@ -91,11 +91,10 @@ describe_recipe 'spec_examples::default' do
 
     # The file existence and permissions matchers are also valid for
     # directories:
-    # FIXME: Actual value found for owner is nil!
-    it "creates directories" #do
-    #  directory("/etc/").must_exist.with(:owner, "root")
-    #  assert_directory "/etc", "root", "root", 0755
-    #end
+    it "creates directories" do
+      directory("/etc/").must_exist.with(:owner, "root")
+      assert_directory "/etc", "root", "root", 0755
+    end
 
     # = Links =
 

@@ -139,10 +139,17 @@ module MiniTest
       end
 
       def assert_acl(file, owner, group, mode)
-        file(file).
-          must_have(:owner, owner).
-          must_have(:group, group).
-          must_have(:mode, mode)
+        unless File.directory?(file)
+          file(file).
+            must_have(:owner, owner).
+            must_have(:group, group).
+            must_have(:mode, mode)
+        else
+          directory(file).
+            must_have(:owner, owner).
+            must_have(:group, group).
+            must_have(:mode, mode)
+        end
       end
 
       def assert_symlinked_file(file, *args)
