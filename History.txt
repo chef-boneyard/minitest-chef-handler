@@ -1,3 +1,8 @@
+=== 1.0.2 / 01-02-2014
+* 1 bug fix:
+
+  * Fix assert_directory returns nil instead of owner/group of the directory
+
 === 1.0.1 / 04-24-2013
 
 * 1 bug fix:
