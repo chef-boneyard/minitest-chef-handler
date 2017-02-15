@@ -4,6 +4,17 @@ Run minitest suites after your Chef recipes to check the status of your system.
 
 [![Build Status](https://travis-ci.org/calavera/minitest-chef-handler.png)](https://travis-ci.org/calavera/minitest-chef-handler)
 
+# DEPRECATION NOTICE
+
+This software is only very lightly maintained, if at all.  The only bugfixes likely to be worked on
+will be for chef-client compatibility issues for major breakages (i.e. issues like fails to work at all on
+chef-client 12.0.0 because of API changes within chef-client).
+
+Community submitted PRs can be merged and the software can still get released, but it is not under
+active maintainership.
+
+Users are urged to consider switching to using Inspec:  http://inspec.io/
+
 # Installation
 
 ```Bash
